@@ -78,9 +78,7 @@ const SampleForm = () => {
                       </button>
                       <button
                         type="button"
-                        onClick={() => {
-                          setShowScanner(true);
-                        }}
+                        onClick={() => setShowScanner(!showScanner)}
                       >
                         Scan
                       </button>
