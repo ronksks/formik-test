@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "../Styles/SampleFormStyle.css";
+
 import { Field, FieldArray, Form, Formik } from "formik";
 import { CheckboxWithLabel, TextField } from "formik-material-ui";
 import { array, boolean, number, object, string, ValidationError } from "yup";
@@ -14,101 +16,118 @@ const SampleForm = () => {
   return (
     <div>
       <h1>Sample Bags</h1>
-      <Formik
-        initialValues={{
-          sampleBags: [{ name: "", weight: "", barcode: "" }],
-        }}
-        onSubmit={(values) =>
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-          }, 500)
-        }
-        render={({ values }) => (
-          <Form>
-            <FieldArray
-              name="sampleBags"
-              render={(arrayHelpers) => (
-                <div>
-                  {values.sampleBags.map((sampleBag, index) => (
-                    <div key={index}>
-                      <Field
-                        name={`sampleBags[${index}].name`}
-                        placeholder={`Sample Bag #${index + 1}`}
-                      />
-                      <Field
-                        name={`sampleBags.${index}.weight`}
-                        type="number"
-                        placeholder="Weight"
-                      />
-                      <Field
-                        name={`sampleBags.${index}.barcode`}
-                        component={TextField}
-                        placeholder="Barcode"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          arrayHelpers.remove(index);
-                        }}
-                      >
-                        -
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          arrayHelpers.push({
-                            name: "",
-                            weight: "",
-                            barcode: "",
-                          });
-                        }}
-                      >
-                        +
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          arrayHelpers.replace(index, {
-                            ...sampleBag,
-                            barcode: "",
-                          });
-                        }}
-                      >
-                        Clear
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setShowScanner(true)}
-                      >
-                        Scan
-                      </button>
-                      <>
-                        {showScanner && (
-                          <div>
-                            {/* <div id={`reader-${index}`}></div> */}
-                            <ScannerComponent
-                              scannedDataFromScanner={(data) => {
-                                setScannedData(data);
-                                setShowScanner(false);
-                                // arrayHelpers.replace(index, {
-                                //   ...sampleBag,
-                                //   barcode: scannedData,
-                                // });
-                              }}
-                              // readerId={`reader-${index}`}
-                            />
+      <div className="sample-bag">
+        <div className="form-group">
+          <Formik
+            initialValues={{
+              sampleBags: [{ name: "", weight: "", barcode: "" }],
+            }}
+            onSubmit={(values) =>
+              setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+              }, 500)
+            }
+            render={({ values }) => (
+              <Form>
+                <FieldArray
+                  name="sampleBags"
+                  render={(arrayHelpers) => (
+                    <div className="sample-bag">
+                      {values.sampleBags.map((sampleBag, index) => (
+                        <div className="form-group">
+                          <div key={index}>
+                            <div className="form-group">
+                              <Field
+                                name={`sampleBags[${index}].name`}
+                                component={TextField}
+                                placeholder={`Sample Bag #${index + 1}`}
+                              />
+                              <Field
+                                name={`sampleBags.${index}.weight`}
+                                component={TextField}
+                                placeholder="Weight"
+                              />
+                              <Field
+                                name={`sampleBags.${index}.barcode`}
+                                component={TextField}
+                                placeholder="Barcode"
+                              />
+                            </div>
+                            <div className="form-group">
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => {
+                                  arrayHelpers.remove(index);
+                                }}
+                              >
+                                -
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => {
+                                  arrayHelpers.push({
+                                    name: "",
+                                    weight: "",
+                                    barcode: "",
+                                  });
+                                }}
+                              >
+                                +
+                              </button>
+                            </div>
+                            <div className="form-group">
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => {
+                                  arrayHelpers.replace(index, {
+                                    ...sampleBag,
+                                    barcode: "",
+                                  });
+                                }}
+                              >
+                                Clear
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={() => setShowScanner(true)}
+                              >
+                                Scan
+                              </button>
+                            </div>
+                            <>
+                              {showScanner && (
+                                <div>
+                                  {/* <div id={`reader-${index}`}></div> */}
+                                  <ScannerComponent
+                                    scannedDataFromScanner={(data) => {
+                                      setScannedData(data);
+                                      setShowScanner(false);
+                                      // arrayHelpers.replace(index, {
+                                      //   ...sampleBag,
+                                      //   barcode: scannedData,
+                                      // });
+                                    }}
+                                    // readerId={`reader-${index}`}
+                                  />
+                                </div>
+                              )}
+                            </>
                           </div>
-                        )}
-                      </>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )}
-            />
-            <pre>{JSON.stringify(values, null, 2)}</pre>
-          </Form>
-        )}
-      />
+                  )}
+                />
+                <pre>{JSON.stringify(values, null, 2)}</pre>
+              </Form>
+            )}
+          />
+        </div>
+      </div>
     </div>
   );
 };
