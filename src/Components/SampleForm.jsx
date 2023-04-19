@@ -9,7 +9,7 @@ import ScannerComponent from "./ScannerComponent";
 // If the list is empty, there is a button to add an item.
 const SampleForm = () => {
   const [showScanner, setShowScanner] = useState(false);
-  const [scannedData, setScannedData] = useState("");
+  const [scannedData, setScannedData] = useState(false);
 
   return (
     <div>
@@ -85,18 +85,21 @@ const SampleForm = () => {
                         Scan
                       </button>
                       {showScanner && (
-                          <div>
-                            {/* <div id={`reader-${index}`}></div> */}
-                            <ScannerComponent
-                              scannedDataFromScanner={(data) => {
-                                setScannedData(data);
-                                setShowScanner(false);
-                              }}
-                              // readerId={`reader-${index}`}
-                            />
-                          </div>
-                        ) &&
-                        alert(scannedData)}
+                        <div>
+                          {/* <div id={`reader-${index}`}></div> */}
+                          <ScannerComponent
+                            scannedDataFromScanner={(data) => {
+                              setScannedData(data);
+                              setShowScanner(false);
+                              arrayHelpers.replace(index, {
+                                ...sampleBag,
+                                barcode: scannedData,
+                              });
+                            }}
+                            // readerId={`reader-${index}`}
+                          />
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
