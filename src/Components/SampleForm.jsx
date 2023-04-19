@@ -131,9 +131,12 @@ const SampleForm = () => {
                     </div>
                   )}
                 />
+                {/* end of fieldArray */}
+
                 <pre>{JSON.stringify(values, null, 2)}</pre>
               </Form>
             )}
+            // end of formik
           />
         </div>
       </div>
