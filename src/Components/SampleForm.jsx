@@ -107,11 +107,11 @@ const SampleForm = () => {
                                       setScannedData(data);
                                       setShowScanner(false);
 
-                                      alert(data);
-                                      // arrayHelpers.replace(index, {
-                                      //   ...sampleBag,
-                                      //   barcode: scannedData,
-                                      // });
+                                      // alert(data);
+                                      arrayHelpers.replace(index, {
+                                        ...sampleBag,
+                                        barcode: scannedData,
+                                      });
                                     }}
                                     // readerId={`reader-${index}`}
                                   />
