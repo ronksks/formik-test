@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../Styles/SampleFormStyle.css";
 
 import { Field, FieldArray, Form, Formik } from "formik";
+import * as Yup from "yup";
 import { CheckboxWithLabel, TextField } from "formik-material-ui";
 import { array, boolean, number, object, string, ValidationError } from "yup";
 import ScannerComponent from "./ScannerComponent";
@@ -22,6 +23,18 @@ const SampleForm = () => {
             initialValues={{
               sampleBags: [{ name: "", weight: "", barcode: "" }],
             }}
+            validationSchema={Yup.object().shape({
+              // seedsWeight: Yup.number().required("Seeds weight is required"),
+              sampleBags: Yup.array()
+                .of(
+                  Yup.object().shape({
+                    // check the barcode data=>
+                    barcode: Yup.string().required("Barcode is required"),
+                    // weight: Yup.number().required("Weight is required"),
+                  })
+                )
+                .required("At least one sample bag is required"),
+            })}
             onSubmit={(values) =>
               setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
