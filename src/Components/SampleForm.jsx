@@ -82,22 +82,24 @@ const SampleForm = () => {
                       >
                         Scan
                       </button>
-                      {showScanner && (
-                        <div>
-                          {/* <div id={`reader-${index}`}></div> */}
-                          <ScannerComponent
-                            scannedDataFromScanner={(data) => {
-                              setScannedData(data);
-                              setShowScanner(false);
-                              // arrayHelpers.replace(index, {
-                              //   ...sampleBag,
-                              //   barcode: scannedData,
-                              // });
-                            }}
-                            // readerId={`reader-${index}`}
-                          />
-                        </div>
-                      )}
+                      <>
+                        {showScanner && (
+                          <div>
+                            {/* <div id={`reader-${index}`}></div> */}
+                            <ScannerComponent
+                              scannedDataFromScanner={(data) => {
+                                setScannedData(data);
+                                setShowScanner(false);
+                                // arrayHelpers.replace(index, {
+                                //   ...sampleBag,
+                                //   barcode: scannedData,
+                                // });
+                              }}
+                              // readerId={`reader-${index}`}
+                            />
+                          </div>
+                        )}
+                      </>
                     </div>
                   ))}
                 </div>
