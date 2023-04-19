@@ -118,6 +118,13 @@ const SampleForm = () => {
                                 </div>
                               )}
                             </>
+                            <button
+                              type="submit"
+                              className="btn submit"
+                              // onClick={() => setShowScanner(true)}
+                            >
+                              Submit
+                            </button>
                           </div>
                         </div>
                       ))}
