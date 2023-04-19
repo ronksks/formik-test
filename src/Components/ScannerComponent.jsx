@@ -45,18 +45,19 @@ function ScannerComponent({ onScan }) {
     .catch((err) => {
       console.log("Error getting cameras", err);
     });
+  return <div id="reader"></div>;
 
-  return (
-    <div>
-      <div id="reader"></div>
-      {showData && (
-        <div>
-          Scanned Data: {scannedDataInScanner}
-          <button onClick={() => setShowData(false)}>Hide</button>
-        </div>
-      )}
-    </div>
-  );
+  //   return (
+  //     <div>
+  //       <div id="reader"></div>
+  //       {showData && (
+  //         <div>
+  //           Scanned Data: {scannedDataInScanner}
+  //           <button onClick={() => setShowData(false)}>Hide</button>
+  //         </div>
+  //       )}
+  //     </div>
+  //   );
 }
 
 export default ScannerComponent;
