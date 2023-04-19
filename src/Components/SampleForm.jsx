@@ -16,7 +16,7 @@ const SampleForm = () => {
   return (
     <div>
       <h1>Sample Bags</h1>
-      <div className="sample-bag">
+      <div className="form-container">
         <div className="form-group">
           <Formik
             initialValues={{
@@ -106,6 +106,8 @@ const SampleForm = () => {
                                     scannedDataFromScanner={(data) => {
                                       setScannedData(data);
                                       setShowScanner(false);
+
+                                      alert(data);
                                       // arrayHelpers.replace(index, {
                                       //   ...sampleBag,
                                       //   barcode: scannedData,
