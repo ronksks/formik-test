@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-function ScannerComponent({ props }) {
+function ScannerComponent({ onScan }) {
   const [scannedDataInScanner, setScannedDataInScanner] = useState("");
   const [showData, setShowData] = useState(false);
 
   const handleQrCodeSuccess = (decodedText, decodedResult) => {
     setScannedDataInScanner(decodedText);
     setShowData(true);
-    props(decodedText); // pass the scanned data back to the parent component
+    onScan(decodedText); // pass the scanned data back to the parent component
     Html5Qrcode.stop(); // stop scanning
   };
 
