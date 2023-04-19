@@ -9,6 +9,7 @@ import ScannerComponent from "./ScannerComponent";
 // If the list is empty, there is a button to add an item.
 const SampleForm = () => {
   const [showScanner, setShowScanner] = useState(false);
+  const [scannedData, setScannedData] = useState(false);
 
   return (
     <div>
@@ -83,26 +84,24 @@ const SampleForm = () => {
                       >
                         Scan
                       </button>
-                      {showScanner &&
-                        arrayHelpers.replace(index, {
-                          ...sampleBag,
-                          barcode: (
-                            <ScannerComponent
-                              onScan={(data) =>
-                                arrayHelpers.replace(index, {
-                                  ...sampleBag,
-                                  barcode: data,
-                                })
-                              }
-                            />
-                          ),
-                        })}
+                      {showScanner && (
+                        <div>
+                          {/* <div id={`reader-${index}`}></div> */}
+                          <ScannerComponent
+                            scannedDataFromScanner={(data) => {
+                              setScannedData(data);
+                              setShowScanner(false);
+                            }}
+                            // readerId={`reader-${index}`}
+                          />
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
               )}
             />
-            {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+            <pre>{JSON.stringify(values, null, 2)}</pre>
           </Form>
         )}
       />
@@ -111,6 +110,23 @@ const SampleForm = () => {
 };
 
 export default SampleForm;
+
+// {
+//   showScanner &&
+//     arrayHelpers.replace(index, {
+//       ...sampleBag,
+//       barcode: (
+//         <ScannerComponent
+//           onScan={(data) =>
+//             arrayHelpers.replace(index, {
+//               ...sampleBag,
+//               barcode: data,
+//             })
+//           }
+//         />
+//       ),
+//     })
+// }
 
 {
   /* <div className="form-group">

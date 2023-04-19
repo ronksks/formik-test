@@ -3,12 +3,10 @@ import { Html5Qrcode } from "html5-qrcode";
 
 function ScannerComponent({ onScan }) {
   const [scannedDataInScanner, setScannedDataInScanner] = useState("");
-  const [showData, setShowData] = useState(false);
 
   const handleQrCodeSuccess = (decodedText, decodedResult) => {
     setScannedDataInScanner(decodedText);
-    setShowData(true);
-    onScan(decodedText); // pass the scanned data back to the parent component
+    onScan(decodedText); // pass the scanned data back to the SampleBag component
     Html5Qrcode.stop(); // stop scanning
   };
 
@@ -45,19 +43,8 @@ function ScannerComponent({ onScan }) {
     .catch((err) => {
       console.log("Error getting cameras", err);
     });
-  return <div id="reader"></div>;
 
-  //   return (
-  //     <div>
-  //       <div id="reader"></div>
-  //       {showData && (
-  //         <div>
-  //           Scanned Data: {scannedDataInScanner}
-  //           <button onClick={() => setShowData(false)}>Hide</button>
-  //         </div>
-  //       )}
-  //     </div>
-  //   );
+  return <div id="reader"></div>;
 }
 
 export default ScannerComponent;
