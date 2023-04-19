@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/formik-test/static/css/main.646e071b.css",
-    "main.js": "/formik-test/static/js/main.4d816656.js",
+    "main.css": "/formik-test/static/css/main.47051530.css",
+    "main.js": "/formik-test/static/js/main.ec99edd7.js",
     "static/js/787.c209496f.chunk.js": "/formik-test/static/js/787.c209496f.chunk.js",
     "index.html": "/formik-test/index.html",
-    "main.646e071b.css.map": "/formik-test/static/css/main.646e071b.css.map",
-    "main.4d816656.js.map": "/formik-test/static/js/main.4d816656.js.map",
+    "main.47051530.css.map": "/formik-test/static/css/main.47051530.css.map",
+    "main.ec99edd7.js.map": "/formik-test/static/js/main.ec99edd7.js.map",
     "787.c209496f.chunk.js.map": "/formik-test/static/js/787.c209496f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.646e071b.css",
-    "static/js/main.4d816656.js"
+    "static/css/main.47051530.css",
+    "static/js/main.ec99edd7.js"
   ]
 }
