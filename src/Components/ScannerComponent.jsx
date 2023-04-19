@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-function ScannerComponent({ scannedDataFromScanner }) {
+function ScannerComponent({ scannedDataFromScanner, readerId }) {
   const [scannedDataInScanner, setScannedDataInScanner] = useState("");
 
   const handleQrCodeSuccess = (decodedText, decodedResult) => {
@@ -10,10 +10,10 @@ function ScannerComponent({ scannedDataFromScanner }) {
     Html5Qrcode.stop(); // stop scanning
   };
 
-  Html5Qrcode.getCameras()
-    .then((devices) => {
+  useEffect(() => {
+    Html5Qrcode.getCameras().then((devices) => {
       if (devices && devices.length) {
-        const html5QrCode = new Html5Qrcode("reader");
+        const html5QrCode = new Html5Qrcode(readerId);
         const config = {
           fps: 100,
           qrbox: {
@@ -30,21 +30,20 @@ function ScannerComponent({ scannedDataFromScanner }) {
             handleQrCodeSuccess
           );
           setTimeout(function () {
-            html5QrCode.applyVideoConstraints({
-              focusMode: "continuous",
-              advanced: [{ zoom: 2.0 }],
-            });
-          }, 2000);
-        } catch (error) {
-          console.log("Unable to start scanning.", error);
+            Html5Qrcode.stop();
+          }, 60000);
+        } catch (err) {
+          console.log(err);
         }
       }
-    })
-    .catch((err) => {
-      console.log("Error getting cameras", err);
     });
+  }, [readerId]);
 
-  return <div id="reader"></div>;
+  return (
+    <div>
+      <div id={readerId}></div>
+    </div>
+  );
 }
 
 export default ScannerComponent;

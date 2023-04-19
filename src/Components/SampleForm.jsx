@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../Styles/SampleFormStyle.css";
 
-import { Field, FieldArray, Form, Formik } from "formik";
+import { Field, FieldArray, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { CheckboxWithLabel, TextField } from "formik-material-ui";
 import { array, boolean, number, object, string, ValidationError } from "yup";
@@ -51,19 +51,37 @@ const SampleForm = () => {
                           <div key={index}>
                             <div className="form-group">
                               <Field
+                                id={`sampleBags[${index}].name`}
                                 name={`sampleBags[${index}].name`}
                                 component={TextField}
                                 placeholder={`Sample Bag #${index + 1}`}
                               />
+                              <ErrorMessage
+                                className="error"
+                                component="div"
+                                name={`sampleBags.${index}.name`}
+                              />
                               <Field
+                                id={`sampleBags.${index}.weight`}
                                 name={`sampleBags.${index}.weight`}
                                 component={TextField}
                                 placeholder="Weight"
                               />
+                              <ErrorMessage
+                                className="error"
+                                component="div"
+                                name={`sampleBags.${index}.weight`}
+                              />
                               <Field
+                                id={`sampleBags.${index}.barcode`}
                                 name={`sampleBags.${index}.barcode`}
                                 component={TextField}
                                 placeholder="Barcode"
+                              />
+                              <ErrorMessage
+                                className="error"
+                                component="div"
+                                name={`sampleBags.${index}.Barcode`}
                               />
                             </div>
                             <div className="form-group">
@@ -126,16 +144,12 @@ const SampleForm = () => {
                                         barcode: data,
                                       });
                                     }}
-                                    // readerId={`reader-${index}`}
+                                    readerId={`reader-${index}`}
                                   />
                                 </div>
                               )}
                             </>
-                            <button
-                              type="submit"
-                              className="btn submit"
-                              // onClick={() => setShowScanner(true)}
-                            >
+                            <button type="submit" className="btn submit">
                               Submit
                             </button>
                           </div>
