@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-function ScannerComponent({ scannedDataFromScanner, readerId }) {
+const ScannerComponent = ({ scannedDataFromScanner, readerId }) => {
   const [scannedDataInScanner, setScannedDataInScanner] = useState("");
 
   const handleQrCodeSuccess = (decodedText, decodedResult) => {
@@ -44,6 +44,6 @@ function ScannerComponent({ scannedDataFromScanner, readerId }) {
       <div id={readerId}></div>
     </div>
   );
-}
+};
 
 export default ScannerComponent;
