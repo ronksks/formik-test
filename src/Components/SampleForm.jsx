@@ -8,9 +8,18 @@ import { CheckboxWithLabel, TextField } from "formik-material-ui";
 import ScannerComponent from "./ScannerComponent";
 
 const SampleForm = () => {
-  const [showScanner, setShowScanner] = useState(false);
+  const [showScanner, setShowScanner] = useState([]);
   const [scannedData, setScannedData] = useState("");
   const [bagNumber, setBagNumber] = useState(1);
+
+  const updateScanner = (index, isOpen) => {
+    let newArr = [...showScanner];
+    newArr[index] = {
+      scannerId: index,
+      isOpen: isOpen
+    };
+    setShowScanner(newArr);
+  }
 
   return (
     <div className="form-container">
@@ -134,17 +143,17 @@ const SampleForm = () => {
                         <button
                           type="button"
                           className="btn btn-secondary"
-                          onClick={() => setShowScanner(true)}
+                          onClick={updateScanner(index, true)}
                         >
                           Scan Barcode
                         </button>
                       </div>
                       <>
-                        {showScanner && (                          <div>
+                        {showScanner && (<div>
                             <ScannerComponent
                               scannedDataFromScanner={(data) => {
                                 setScannedData(data);
-                                setShowScanner(false);
+                                updateScanner(index, false);
 
                                 arrayHelpers.replace(index, {
                                   ...sampleBag,
