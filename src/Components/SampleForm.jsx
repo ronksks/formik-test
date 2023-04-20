@@ -153,7 +153,7 @@ const SampleForm = () => {
                         </button>
                       </div>
                       <>
-                        {isOpen.bind(index) && (
+                        {isOpen(index) && (
                           <div>
                             <ScannerComponent
                               scannedDataFromScanner={(data) => {
