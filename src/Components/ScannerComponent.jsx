@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-function ScannerComponent({ scannedDataFromScanner }) {
+function ScannerComponent({ scannedDataFromScanner, index }) {
   const [scannedDataInScanner, setScannedDataInScanner] = useState("");
 
   const handleQrCodeSuccess = (decodedText, decodedResult) => {
@@ -43,8 +43,8 @@ function ScannerComponent({ scannedDataFromScanner }) {
     .catch((err) => {
       console.log("Error getting cameras", err);
     });
-
-  return <div id="reader"></div>;
+  // {/* <div id={`reader-${index}`}></div> */}
+  return <div id={`reader-${index}`}></div>;
 }
 
 export default ScannerComponent;

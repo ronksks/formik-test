@@ -149,6 +149,7 @@ const SampleForm = () => {
                                   barcode: data,
                                 });
                               }}
+                              index={index}
                             />
                           </div>
                         )}
