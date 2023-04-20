@@ -17,7 +17,9 @@ const SampleForm = () => {
       <h1>Sample Bags</h1>
       <Formik
         initialValues={{
-          sampleBags: [{ name: "", weight: "", barcode: "" }],
+          sampleBags: [
+            { name: "", weight: "", barcode: "" },
+          ],
         }}
         validationSchema={Yup.object().shape({
           // seedsWeight: Yup.number().required("Seeds weight is required"),
@@ -108,6 +110,7 @@ const SampleForm = () => {
                               name: "",
                               weight: "",
                               barcode: "",
+                              scanner: ScannerComponent,
                             });
                             setBagNumber((prevBagNumber) => prevBagNumber + 1);
                           }}
@@ -137,8 +140,7 @@ const SampleForm = () => {
                         </button>
                       </div>
                       <>
-                        {showScanner && (
-                          <div>
+                        {showScanner && (                          <div>
                             <ScannerComponent
                               scannedDataFromScanner={(data) => {
                                 setScannedData(data);
@@ -167,7 +169,7 @@ const SampleForm = () => {
               Submit
             </button>
 
-            <pre>{JSON.stringify(values, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
           </Form>
         )}
         // end of formik
