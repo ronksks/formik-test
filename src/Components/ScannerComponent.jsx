@@ -44,7 +44,7 @@ function ScannerComponent(props) {
       console.log("Error getting cameras", err);
     });
   // {/* <div id={`reader-${index}`}></div> */}
-  return <div id={`reader-${props.index}`}></div>;
+  return <div id="reader" key={props.index}></div>;
 }
 
 export default ScannerComponent;
