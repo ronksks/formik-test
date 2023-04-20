@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "../Styles/SampleFormStyle.css";
 
 import { Field, FieldArray, Form, Formik, ErrorMessage } from "formik";
@@ -8,23 +8,23 @@ import { CheckboxWithLabel, TextField } from "formik-material-ui";
 import ScannerComponent from "./ScannerComponent";
 
 const SampleForm = () => {
-  const [showScanner, setShowScanner] = useState([]);
+  const [scanner, setScanner] = useState([{ id: 0, isOpen: false }]);
   const [scannedData, setScannedData] = useState("");
   const [bagNumber, setBagNumber] = useState(1);
 
-  const updateScanner = (index, isOpen) => {
-    let newArr = [...showScanner];
-    newArr[index] = {
-      scannerId: index,
-      isOpen: isOpen,
-    };
-    setShowScanner(newArr);
-  };
+  const showScannerHandler = (idx, isOpen) => {
+    console.log(scanner);
+    console.log("index: " + idx);
+    console.log("property name: " + isOpen);
+    let newArr = [...scanner]; // copying the old datas array
+    // a deep copy is not needed as we are overriding the whole object below, and not setting a property of it. this does not mutate the state.
+    newArr[idx] = { id: idx, isOpen: isOpen }; // replace e.target.value with whatever you want to change it to
 
-  const scannerToShow = (index) => {
-    showScanner.find((scanner) => {
-      return scanner.scannerId === index;
-    });
+    setScanner(newArr);
+  };
+  const isOpen = (idx) => {
+    console.log(idx);
+    return scanner[idx].isOpen;
   };
 
   return (
@@ -147,18 +147,18 @@ const SampleForm = () => {
                         <button
                           type="button"
                           className="btn btn-secondary"
-                          onClick={updateScanner(index, true)}
+                          onClick={showScannerHandler.bind("", index, true)}
                         >
                           Scan Barcode
                         </button>
                       </div>
                       <>
-                        {scannerToShow(index) && (
+                        {isOpen.bind(index) && (
                           <div>
                             <ScannerComponent
                               scannedDataFromScanner={(data) => {
                                 setScannedData(data);
-                                updateScanner(index, false);
+                                showScannerHandler.bind("", index, true);
 
                                 arrayHelpers.replace(index, {
                                   ...sampleBag,
