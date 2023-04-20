@@ -11,7 +11,6 @@ const SampleForm = () => {
   const [showScanner, setShowScanner] = useState(false);
   const [scannedData, setScannedData] = useState("");
   const [bagNumber, setBagNumber] = useState(1);
-  const [selectedBagIndex, setSelectedBagIndex] = useState(-1);
 
   return (
     <div className="form-container">
@@ -37,7 +36,7 @@ const SampleForm = () => {
             alert(JSON.stringify(values, null, 2));
           }, 500)
         }
-        render={({ values, arrayHelpers, selectedBagIndex }) => (
+        render={({ values }) => (
           <Form className="form">
             <div className="form-group">
               <label htmlFor="seedsWeight">Seeds weight (grams):</label>
@@ -132,14 +131,28 @@ const SampleForm = () => {
                         <button
                           type="button"
                           className="btn btn-secondary"
-                          onClick={() => {
-                            setSelectedBagIndex(index);
-                            setShowScanner(true);
-                          }}
+                          onClick={() => setShowScanner(true)}
                         >
                           Scan Barcode
                         </button>
                       </div>
+                      <>
+                        {showScanner && (
+                          <div>
+                            <ScannerComponent
+                              scannedDataFromScanner={(data) => {
+                                setScannedData(data);
+                                setShowScanner(false);
+
+                                arrayHelpers.replace(index, {
+                                  ...sampleBag,
+                                  barcode: data,
+                                });
+                              }}
+                            />
+                          </div>
+                        )}
+                      </>
                     </div>
                   ))}
                   <button type="submit" className="btn submit">
@@ -149,25 +162,6 @@ const SampleForm = () => {
               )}
             />
             {/* end of fieldArray */}
-            {showScanner && (
-              <div>
-                <ScannerComponent
-                  scannedDataFromScanner={(data) => {
-                    setScannedData(data);
-                    setShowScanner(false);
-
-                    if (selectedBagIndex >= 0) {
-                      const newSampleBags = [...values.sampleBags];
-                      newSampleBags[selectedBagIndex] = {
-                        ...newSampleBags[selectedBagIndex],
-                        barcode: data,
-                      };
-                      arrayHelpers.replace(newSampleBags);
-                    }
-                  }}
-                />
-              </div>
-            )}
             <button type="submit" className="btn submit">
               Submit
             </button>
