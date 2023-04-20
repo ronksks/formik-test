@@ -3,7 +3,7 @@ import "../Styles/SampleFormStyle.css";
 
 import { Field, FieldArray, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { TextField } from "formik-material-ui";
+import { CheckboxWithLabel, TextField } from "formik-material-ui";
 // import { array, boolean, number, object, string, ValidationError } from "yup";
 import ScannerComponent from "./ScannerComponent";
 
@@ -11,15 +11,6 @@ const SampleForm = () => {
   const [showScanner, setShowScanner] = useState(false);
   const [scannedData, setScannedData] = useState("");
   const [bagNumber, setBagNumber] = useState(1);
-
-  const handleScanBarcode = (arrayHelpers, index) => {
-    setShowScanner(true);
-    setBagNumber(index + 1);
-    arrayHelpers.replace(index, {
-      ...arrayHelpers.form.values.sampleBags[index],
-      barcode: "",
-    });
-  };
 
   return (
     <div className="form-container">
@@ -140,26 +131,28 @@ const SampleForm = () => {
                         <button
                           type="button"
                           className="btn btn-secondary"
-                          onClick={() => handleScanBarcode(arrayHelpers, index)}
+                          onClick={() => setShowScanner(true)}
                         >
                           Scan Barcode
                         </button>
                       </div>
-                      {showScanner && bagNumber === index + 1 && (
-                        <div>
-                          <ScannerComponent
-                            scannedDataFromScanner={(data) => {
-                              setScannedData(data);
-                              setShowScanner(false);
+                      <>
+                        {showScanner && (
+                          <div>
+                            <ScannerComponent
+                              scannedDataFromScanner={(data) => {
+                                setScannedData(data);
+                                setShowScanner(false);
 
-                              arrayHelpers.replace(index, {
-                                ...sampleBag,
-                                barcode: data,
-                              });
-                            }}
-                          />
-                        </div>
-                      )}
+                                arrayHelpers.replace(index, {
+                                  ...sampleBag,
+                                  barcode: data,
+                                });
+                              }}
+                            />
+                          </div>
+                        )}
+                      </>
                     </div>
                   ))}
                   <button type="submit" className="btn submit">
