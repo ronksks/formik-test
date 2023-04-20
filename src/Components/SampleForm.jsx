@@ -16,19 +16,23 @@ const SampleForm = () => {
     let newArr = [...showScanner];
     newArr[index] = {
       scannerId: index,
-      isOpen: isOpen
+      isOpen: isOpen,
     };
     setShowScanner(newArr);
-  }
+  };
+
+  const scannerToShow = (index) => {
+    showScanner.find((scanner) => {
+      return scanner.scannerId === index;
+    });
+  };
 
   return (
     <div className="form-container">
       <h1>Sample Bags</h1>
       <Formik
         initialValues={{
-          sampleBags: [
-            { name: "", weight: "", barcode: "" },
-          ],
+          sampleBags: [{ name: "", weight: "", barcode: "" }],
         }}
         validationSchema={Yup.object().shape({
           // seedsWeight: Yup.number().required("Seeds weight is required"),
@@ -149,7 +153,8 @@ const SampleForm = () => {
                         </button>
                       </div>
                       <>
-                        {showScanner && (<div>
+                        {scannerToShow(index) && (
+                          <div>
                             <ScannerComponent
                               scannedDataFromScanner={(data) => {
                                 setScannedData(data);
